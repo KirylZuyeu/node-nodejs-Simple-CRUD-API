@@ -12,19 +12,19 @@
   },
   "license": "ISC",
   "author": "Kiryl Zuyeu",
-  "type": "module",
+  "type": "commonjs",
   "main": "index.ts",
   "scripts": {
-    "start": "node index.js",
-    "start:dev": "cross-env NODE_ENV=development nodemon",
-    "start:prod": "cross-env NODE_ENV=development nodemon",
-    "start:multi": "cross-env NODE_ENV=production nodemon",
+"start": "node dist/index.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon --exec ts-node src/index.ts",
+    "start:prod": "cross-env NODE_ENV=production node dist/index.js",
+    "start:multi": "cross-env NODE_ENV=production node dist/scaling.js",
     "prestart:prod": "npm run build",
-    "prestart:multi": "npm run build:multi",
+    "prestart:multi": "npm run build:multi && npm run build",
     "build": "tsc -p tsconfig.json",
     "build:multi": "tsc -p tsconfig-multi.json",
 
-    "test": "jest",
+    "test": "jest --verbose",
     "test:watch": "jest --watch"
   },
   "dependencies": {
@@ -43,5 +43,13 @@
     "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
-  }
+  },
+  "jest": {
+    "setupFiles": [
+        "./jest.setup.js"
+    ],
+    "testMatch": [
+        "**/src/tests/**/*.spec.js"
+    ]
+}
 }

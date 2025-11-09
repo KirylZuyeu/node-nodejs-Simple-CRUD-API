@@ -1,7 +1,10 @@
-import * as cluster from 'cluster';
 import { cpus } from 'os';
 import { pid } from 'process';
-import { Worker } from 'cluster'; 
+import { startServer } from './index';
+import { Worker } from 'cluster';
+
+const cluster = require('cluster');
+
 
 const startNewWorker = () => {
     const worker: Worker = cluster.fork();
@@ -13,31 +16,33 @@ const startNewWorker = () => {
     return worker;
 };
 
+
 const startCluster = async () => {
+
     if (cluster.isPrimary) {
         const cpusCount = cpus().length;
 
-        console.log(`Primary (Master) pid ${pid} started ${cpusCount} workers.`);
+        console.log(`Primary pid ${pid} started ${cpusCount} workers.`);
 
         for (let i = 0; i < cpusCount; i += 1) {
             startNewWorker();
         }
 
+
         cluster.on('exit', (worker: Worker, code: number, signal: string) => {
             if (code !== 0 && !worker.exitedAfterDisconnect) {
-                console.log(`Worker ${worker.id} died (PID: ${worker.process.pid}, Code: ${code}, Signal: ${signal}). Starting a new one...`);
+                console.log(`Worker ${worker.id} died (PID: ${worker.process.pid}). Starting a new one...`);
                 startNewWorker();
             }
         });
 
-    } else {
+} else {
+    const workerId = cluster.worker?.id || 0;
 
-        const workerId = cluster.worker?.id || 0;
+    startServer();
 
-        await import('./index');
-
-        console.log(`Worker id:${workerId} pid:${pid} is ready to handle requests.`);
-    }
+    console.log(`Worker id:${workerId} pid:${pid} started server.`);
+}
 };
 
 startCluster();
