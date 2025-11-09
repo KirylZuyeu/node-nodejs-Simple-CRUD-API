@@ -1,0 +1,17 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ext": "ts",
+  "execMap": {
+    "ts": "ts-node"
+  },
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ignore": [
+    "node_modules",
+    "dist"
+  ],
+  "exec": "ts-node ./src/index.ts"
+}
