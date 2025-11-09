@@ -16,14 +16,12 @@ config({ path: resolve(cwd(), '.env') });
 export const startServer = () => {
     const server = http.createServer(async (req, res) => {
         try {
-
             const requestUrl = req.url || '';
             const parts = requestUrl.split('/');
             const resource = `/${parts[1]}/${parts[2]}`;
             const userId = parts[3];
             const isRootUrl = requestUrl === '/api/users';
             const isIdUrl = resource === '/api/users' && userId;
-
             if (isRootUrl) {
                 switch (req.method) {
                     case 'GET':
@@ -38,14 +36,12 @@ export const startServer = () => {
                         break;
                 }
             }
-
             else if (isIdUrl) {
                 if (!validateUuid(userId)) {
 
                     sendErrorResponse(res, 400, 'Invalid ID');
                     return;
                 }
-
                 switch (req.method) {
                     case 'GET':
                         await UserController.getById(req, res, userId);
@@ -57,12 +53,10 @@ export const startServer = () => {
                         await UserController.remove(req, res, userId);
                         break;
                     default:
-
                         sendErrorResponse(res, 404, 'Endpoint Not Found');
                         break;
                 }
             }
-
             else {
                 sendErrorResponse(res, 404, 'Endpoint Not Found');
             }
@@ -71,9 +65,7 @@ export const startServer = () => {
             sendErrorResponse(res, 500, 'Server Side Error');
         }
     });
-
     const { PORT } = process.env;
-
     server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 };
 

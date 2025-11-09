@@ -8,9 +8,9 @@ describe('Test Scenario 1: Basic CRUD Operations', () => {
     });
     it('POST /api/users: Status 201', async () => {
         const mockRequest = {
-            username: 'Name',
+            username: 'User',
             age: 22,
-            hobbies: ['hobby'],
+            hobbies: ['coding'],
         };
         const res = await request.post('/api/users').send(mockRequest);
 
@@ -30,9 +30,9 @@ describe('Test Scenario 1: Basic CRUD Operations', () => {
 
     it('PUT /api/users/{userId}: Status 200', async () => {
         const mockRequest = {
-            username: 'NewName',
+            username: 'User',
             age: 23,
-            hobbies: ['hobby'],
+            hobbies: ['coding'],
         };
 
         const res = await request.put(`/api/users/${testState.id}`).send(mockRequest);
@@ -61,7 +61,7 @@ describe('Test Scenario 2: Error Handling (400, 404)', () => {
     describe('400 Bad Request Errors (Invalid Input)', () => {
         it('POST /api/users: Status 400 - No Required Values', async () => {
             const mockRequest = {
-                username: 'Name',
+                username: 'User',
                 age: 33,
             };
 
@@ -73,9 +73,9 @@ describe('Test Scenario 2: Error Handling (400, 404)', () => {
 
         it('POST /api/users: Status 400 - Invalid Body Values', async () => {
             const mockRequest = {
-                username: 'Name',
+                username: 'User',
                 age: 25,
-                hobbies: 'hobby',
+                hobbies: 'coding',
             };
 
             const res = await request.post('/api/users').send(mockRequest);
@@ -129,9 +129,9 @@ describe('Test Scenario 3: Multiple Records Lifecycle', () => {
     let id1, id2;
 
     const mockRequest = {
-        username: 'MassUser',
+        username: 'User',
         age: 40,
-        hobbies: ['mass'],
+        hobbies: ['coding'],
     };
 
     it('POST /api/users (x2): Status 201', async () => {
