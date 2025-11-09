@@ -12,11 +12,18 @@
   },
   "license": "ISC",
   "author": "Kiryl Zuyeu",
-  "type": "commonjs",
-  "main": "index.js",
+  "type": "module",
+  "main": "index.ts",
   "scripts": {
     "start": "node index.js",
-    "start:dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon",
+    "start:prod": "cross-env NODE_ENV=development nodemon",
+    "start:multi": "cross-env NODE_ENV=production nodemon",
+    "prestart:prod": "npm run build",
+    "prestart:multi": "npm run build:multi",
+    "build": "tsc -p tsconfig.json",
+    "build:multi": "tsc -p tsconfig-multi.json",
+
     "test": "jest",
     "test:watch": "jest --watch"
   },
