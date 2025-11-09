@@ -1,0 +1,33 @@
+{
+  "name": "nodejs-simple-crud-api",
+  "version": "1.0.0",
+  "description": "Simple CRUD API for Node.js assignment.",
+  "homepage": "https://github.com/KirylZuyeu/node-nodejs-Simple-CRUD-API#readme",
+  "bugs": {
+    "url": "https://github.com/KirylZuyeu/node-nodejs-Simple-CRUD-API/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KirylZuyeu/node-nodejs-Simple-CRUD-API.git"
+  },
+  "license": "ISC",
+  "author": "Kiryl Zuyeu",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon index.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.4"
+  }
+}
